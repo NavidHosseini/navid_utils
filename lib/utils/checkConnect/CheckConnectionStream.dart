@@ -8,13 +8,28 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:navid_utils/utils/loading/loading.dart';
 
-class CheckConnectionStream extends GetxController {
+class NHCheckConnectionStream extends GetxController {
   late BuildContext context;
-  CheckConnectionStream({required this.context});
+
+  /// not connecting title text default is  "لطفا اتصال اینترت را چک کنید"
+  String? titleNotConnect;
+
+  /// not connecting content text default is "دستگاه شما به اینترنت متصل نیست"
+  String? contentNotConnect;
+
+  /// try again text default is "امتحان دوباره"
+  String? onTryToConnectText;
+
+  NHCheckConnectionStream({
+    required this.context,
+    this.titleNotConnect,
+    this.contentNotConnect,
+    this.onTryToConnectText,
+  });
+
   bool isModalEnable = false;
   final loadingCheckConnectivity = false.obs;
 
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -40,12 +55,14 @@ class CheckConnectionStream extends GetxController {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    _connectionStatus = result;
-
     if (result == ConnectivityResult.none) {
       if (isModalEnable != true) {
         isModalEnable = true;
-        showDialogIfNotConnect();
+        showDialogIfNotConnect(
+          title: titleNotConnect ?? "لطفا اتصال اینترت را چک کنید",
+          middleText: contentNotConnect ?? "دستگاه شما به اینترنت متصل نیست",
+          onTryConnectText: onTryToConnectText ?? "امتحان دوباره",
+        );
       }
     } else {
       if (isModalEnable) {
@@ -55,21 +72,25 @@ class CheckConnectionStream extends GetxController {
     }
   }
 
-  showDialogIfNotConnect() {
+  showDialogIfNotConnect({
+    required String title,
+    required String middleText,
+    required String onTryConnectText,
+  }) {
     Get.defaultDialog(
         barrierDismissible: false,
-        title: "check your network".tr,
+        title: title,
         onWillPop: () async {
           return false;
         },
-        middleText: "Your device is not currently connected to the Internet".tr,
+        middleText: middleText,
         // backgroundColor: Colors.teal,
         titleStyle: const TextStyle(color: Colors.black),
         middleTextStyle: const TextStyle(color: Colors.black),
         radius: 30,
         actions: [
           Obx(() => loadingCheckConnectivity.value
-              ? const CustomLoading(
+              ? NHCustomLoading(
                   height: 30.0,
                   radius: 30.0,
                   // color: Colors.white,
@@ -84,7 +105,7 @@ class CheckConnectionStream extends GetxController {
                     // loadingCheckConnectivity.value = false;
                   },
                   child: Text(
-                    'try again'.tr,
+                    onTryConnectText,
                     style: const TextStyle(color: Colors.white),
                   ),
                 ))

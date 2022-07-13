@@ -1,20 +1,25 @@
 import 'package:double_back_to_close/double_back_to_close.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Widget exitApp2PressBack({child, required bool condition, Function? onBack}) {
+Widget nhExitApp2PressBack(
+    {child,
+    required bool condition,
+    Function? onBack,
+
+    /// default is "برای خارج شدن دوباره بازگشت را بزنید"
+    String message = "برای خارج شدن دوباره بازگشت را بزنید",
+    TextStyle textStyle = const TextStyle(fontSize: 14, color: Colors.white),
+    Color background = const Color(0xAA000000),
+    double backgroundRadius = 20}) {
   return condition
       ? containerWithCondition(onBack, child)
       : DoubleBack(
-          message: "برای خارج شدن دوباره بازگشت را بزنید",
+          message: message,
           child: child,
           condition: true,
-          // textStyle: TextStyle(
-          //   fontSize: 13,
-          //   color: Colors.white,
-          // ),
-          // background: Colors.red,
-          // backgroundRadius: 30,
+          textStyle: textStyle,
+          background: background,
+          backgroundRadius: backgroundRadius,
         );
 }
 

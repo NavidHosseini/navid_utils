@@ -1,27 +1,39 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class CustomLoading extends StatelessWidget {
-  final double height;
-  final double radius;
-  final color;
+// ignore: must_be_immutable
 
-  const CustomLoading({
+/// default loading widget is LoadingAnimationWidget.inkDrop
+///
+class NHCustomLoading extends StatelessWidget {
+  /// default height is context height
+  double? height;
+  final double radius;
+  Color? color;
+
+  /// if loadingWidget ?? color and radios not use
+  Widget? loadingWidget;
+
+  NHCustomLoading({
     Key? key,
-    required this.height,
+    this.height,
     required this.radius,
     this.color,
+    this.loadingWidget,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height != 0.0 ? height : Get.height,
+      height: height ?? Get.height,
       child: Center(
-          child: LoadingAnimationWidget.inkDrop(
-        color: color ?? Theme.of(context).primaryColor,
-        size: radius,
-      )),
+          child: loadingWidget ??
+              LoadingAnimationWidget.inkDrop(
+                color: color ?? Theme.of(context).primaryColor,
+                size: radius,
+              )),
     );
   }
 }

@@ -1,40 +1,24 @@
 name: navid_utils
-description: getx ,get storage,connectivity_plus,easy_debounce,http,client_information,uni_links,double_back_to_close,loading_animation_widget,flutter_dotenv,flutter_local_notifications,rxdart,firebase_messaging,firebase_analytics,share_plus,
+description: navid_utils des
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=2.18.0-115.0.dev <3.0.0'
+  sdk: '>=2.18.0-44.0.dev <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cached_network_image:
   client_information:
   connectivity_plus:
   double_back_to_close:
   easy_debounce:
-  firebase_analytics: 9.1.9
-  firebase_core: 1.15.0
-  firebase_messaging: 11.2.14
-  flutter_dotenv:
-  flutter_local_notifications: ^9.4.1
-  flutter_vector_icons:
   get:
   get_storage:
   http:
-  http_parser:
-  image_cropper:
-  image_picker:
   loading_animation_widget:
-  otp_text_field:
-  rxdart:
   shamsi_date:
-  share_plus:
-  showcaseview:
-  uni_links:
-  url_launcher:
 dev_dependencies:
   flutter_test:
     sdk: flutter

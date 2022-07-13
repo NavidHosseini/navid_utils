@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-customSnackBar(String title, {time = 1}) {
+nhCustomSnackBar({
+  required String title,
+
+  /// duration default  1 seconds
+  int time = 1,
+}) {
   Get.snackbar(
     "",
     "",

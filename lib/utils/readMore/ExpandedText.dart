@@ -1,29 +1,36 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class DescriptionTextWidget extends StatefulWidget {
+class NHExpandedText extends StatefulWidget {
   final String text;
-  final String fromPage;
-  final bool isTextWithHashtag;
-  final direction;
-  final fontFamily;
 
-  const DescriptionTextWidget({
+  /// default is "Sans"
+  String? fontFamily;
+
+  /// default is "نمایش بیشتر"
+  String? showMoreText;
+
+  /// default is "نمایش کمتر"
+  String? showLessText;
+
+  /// default is 14
+  double? fontSize;
+
+  NHExpandedText({
     required this.text,
     Key? key,
-    required this.fromPage,
-    required this.isTextWithHashtag,
-    this.direction,
+    this.showMoreText,
+    this.showLessText,
+    this.fontSize,
     this.fontFamily,
   }) : super(key: key);
 
   @override
-  _DescriptionTextWidgetState createState() => _DescriptionTextWidgetState();
+  NHExpandedTextState createState() => NHExpandedTextState();
 }
 
-class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
-  var size;
-
+class NHExpandedTextState extends State<NHExpandedText> {
   late String firstHalf;
   late String secondHalf;
   late double fontSize;
@@ -41,16 +48,6 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
       firstHalf = widget.text;
       secondHalf = "";
     }
-    switch (widget.fromPage) {
-      case "news":
-        size = 14.0;
-        break;
-      case "trands":
-        size = 14.0;
-        break;
-      default:
-        size = 14.0;
-    }
   }
 
   @override
@@ -65,27 +62,22 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  flag ? (firstHalf + "...") : (firstHalf + secondHalf),
+                  flag ? ("$firstHalf...") : (firstHalf + secondHalf),
                   style: TextStyle(
-                      fontSize: size, fontFamily: widget.fontFamily ?? "Sans"),
+                      fontSize: widget.fontSize ?? 14.0,
+                      fontFamily: widget.fontFamily ?? "Sans"),
                   // textAlign: TextAlign.justify,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: InkWell(
                     child: Row(
-                      mainAxisAlignment: widget.direction == null
-                          ? MainAxisAlignment.start
-                          : MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          widget.direction == null
-                              ? flag
-                                  ? "Show more".tr
-                                  : "Show less".tr
-                              : flag
-                                  ? "Show more"
-                                  : "Show less",
+                          flag
+                              ? widget.showMoreText ?? "نمایش بیشتر"
+                              : widget.showLessText ?? "نمایش کمتر",
                           style: TextStyle(
                               color: Theme.of(context).primaryColor,
                               fontSize: 17),

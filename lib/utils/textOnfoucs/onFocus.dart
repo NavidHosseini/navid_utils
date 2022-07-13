@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-onFocusText() {
+nhOnFocusText() {
   FocusManager.instance.primaryFocus?.unfocus();
 }
 
-isFocus() {
+nhIsFocus() {
   return FocusManager.instance.primaryFocus!.hasFocus;
 }

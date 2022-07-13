@@ -1,6 +1,23 @@
 import 'package:client_information/client_information.dart';
 
-Future<ClientInformation> getDeviceInfo() async {
+/// Get basic client information
+///
+/// ClientInformation is
+///
+/// applicationBuildCode
+/// applicationId
+/// applicationName
+/// applicationType
+/// applicationVersion
+/// deviceId
+/// deviceName
+/// osName
+/// osVersion
+/// softwareName
+/// softwareVersion
+///
+///
+Future<ClientInformation> nhGetDeviceInfo() async {
   try {
     ClientInformation info = await ClientInformation.fetch();
     return info;
